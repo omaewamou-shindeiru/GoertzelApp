@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog
 
-import librosa
 import math
+
+import soundfile
 
 
 def goertzel(samples, sample_rate, target_freq):
@@ -11,15 +12,15 @@ def goertzel(samples, sample_rate, target_freq):
     coeff = 2.0 * math.cos(omega)
 
     # Initialize the variables
-    Q1 = 0
-    Q2 = 0
+    q1 = 0
+    q2 = 0
     for sample in samples:
-        Q0 = coeff * Q1 - Q2 + sample
-        Q2 = Q1
-        Q1 = Q0
+        q0 = coeff * q1 - q2 + sample
+        q2 = q1
+        q1 = q0
 
     # Calculate the magnitude
-    power = Q1 ** 2 + Q2 ** 2 - coeff * Q1 * Q2
+    power = q1 ** 2 + q2 ** 2 - coeff * q1 * q2
     magnitude = abs(power ** 0.5)
     normalized_magnitude = 2 * magnitude / sample_rate
     return normalized_magnitude
@@ -63,7 +64,7 @@ class App:
         self.freqs = [int(f) for f in freq_str.split(",")]
 
         # load file info - sample rate and the sample array
-        samples, sample_rate = librosa.load(self.filepath, sr=None, mono=True)
+        samples, sample_rate = soundfile.read(self.filepath, dtype='float32')
 
         # calculate histogram for each frequency
         self.histogram = []
