@@ -82,7 +82,7 @@ class App:
         bar_width = 500 / len(self.histogram)
         for i, magnitude in enumerate(self.histogram):
             x1 = x0 + bar_width
-            y1 = 250 - magnitude * 200 / max_magnitude
+            y1 = 200 - magnitude * 200 / max_magnitude
             self.hist_canvas.create_rectangle(x0, y0, x1, y1, fill="blue")
 
             freq_label = str(round(self.freqs[i], 4))
