@@ -2,6 +2,9 @@
 A simple GUI app implementing the Goertzel algorithm to measure amplitudes of user-defined frequencies in an audio file.
 
 ## Usage
+
+### Running a script
+
 1. Install a compatible version of Python (>=3.10)
 
 2. Create a virtual environment
@@ -19,3 +22,7 @@ A simple GUI app implementing the Goertzel algorithm to measure amplitudes of us
 5. Run the script
 
 `python main.py`
+
+### Lazy usage
+
+1. Run `dist/GoertzelApp.exe`

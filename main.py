@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
-
 import math
-
 import soundfile
 
 
@@ -37,10 +35,10 @@ class App:
         self.file_label = tk.Label(text="No audio file selected.")
         self.file_button = tk.Button(text="Select audio file", command=self.select_file)
         self.freq_label = tk.Label(text="Enter frequency/frequencies (comma-separated, Hz):")
-        self.freq_entry = tk.Entry()
+        self.freq_entry = tk.Entry(width=100)
         self.freq_button = tk.Button(text="Calculate & Build Histogram", command=self.calculate_histogram)
         self.hist_label = tk.Label(text="Histogram:")
-        self.hist_canvas = tk.Canvas(width=500, height=200)
+        self.hist_canvas = tk.Canvas(width=750, height=200)
 
         # layout GUI elements
         self.file_label.pack()
@@ -79,22 +77,22 @@ class App:
         self.hist_canvas.delete("all")
         x0 = 0
         y0 = 200
-        bar_width = 500 / len(self.histogram)
+        bar_width = 750 / len(self.histogram)
         for i, magnitude in enumerate(self.histogram):
             x1 = x0 + bar_width
-            y1 = 200 - magnitude * 200 / max_magnitude
+            y1 = 200 - magnitude * 200
             self.hist_canvas.create_rectangle(x0, y0, x1, y1, fill="blue")
 
-            freq_label = str(round(self.freqs[i], 4))
-            hist_label = str(round(self.histogram[i], 4))
+            freq_label = str(round(self.freqs[i], 2))
+            hist_label = str(round(self.histogram[i], 2))
 
-            self.hist_canvas.create_text(x0 + 25, y0 - 20, anchor=tk.N, text=freq_label)
-            self.hist_canvas.create_text(x0 + 25, y0 - 50, anchor=tk.N, text=hist_label)
+            self.hist_canvas.create_text(x0 + 12, y0 - 20, anchor=tk.N, text=freq_label)
+            self.hist_canvas.create_text(x0 + 12, y0 - 50, anchor=tk.N, text=hist_label)
             x0 = x1
-
 
 def main():
     root = tk.Tk()
+    root.title("GoertzelApp")
     app = App(root)
     root.mainloop()
 
